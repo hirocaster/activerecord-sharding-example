@@ -15,11 +15,26 @@ default: &default
   pool: 5
   username: root
   password:
-  host: localhost
+  host: mysql-seq
 
 development:
   <<: *default
   database: sharding_development
+
+user_sequencer:
+  <<: *default
+  database: user_seq
+  host: mysql-seq
+
+user_0:
+  <<: *default
+  database: user_0
+  host: mysql-0
+
+user_1:
+  <<: *default
+  database: user_1
+  host: mysql-1
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

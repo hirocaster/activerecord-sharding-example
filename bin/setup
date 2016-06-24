@@ -20,9 +20,19 @@ Dir.chdir APP_ROOT do
   puts "\n== Preparing database =="
   system "bin/rake db:setup"
 
+  system "bin/rake active_record:sharding:sequencer:create_all"
+  system "bin/rake active_record:sharding:sequencer:setup"
+  system "bin/rake active_record:sharding:sequencer:insert_initial_record_all"
+
+  system "bin/rake active_record:sharding:create_all"
+  system "bin/rake active_record:sharding:setup"
+  system "bundle exec ridgepole -c db/config/development/user-0/config.yml -f db/config/development/user-0/Schemafile --apply"
+  system "bundle exec ridgepole -c db/config/development/user-1/config.yml -f db/config/development/user-1/Schemafile --apply"
+
   puts "\n== Removing old logs and tempfiles =="
   system "rm -f log/*"
   system "rm -rf tmp/cache"
+  system "rm -rf tmp/pids"
 
   puts "\n== Restarting application server =="
   system "touch tmp/restart.txt"

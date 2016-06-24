@@ -1,0 +1,18 @@
+<h1>Users of sharding databases</h1>
+
+<h2>Sequence No</h2>
+<%= @seq %>
+
+<h2>host: user_0</h2>
+  <ul>
+  <% @users_b.each do |user| %>
+    <li><%= user.id %>: <%= user.name %></li>
+  <% end %>
+  </ul>
+
+<h2>host: user_1</h2>
+  <ul>
+  <% @users_c.each do |user| %>
+    <li><%= user.id %>: <%= user.name %></li>
+  <% end %>
+  </ul>
